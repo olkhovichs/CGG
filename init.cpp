@@ -1,5 +1,3 @@
-
-
 #include "init.h"
 
 Init::Init() {}
@@ -31,32 +29,45 @@ void Init::drawScene() {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
+void Init::deleteInitOpenGL() {
+    glfwTerminate();
+    return;
+}
+
+
+void Init::drawTriangle() {
+    int width, height;
+
+    glfwGetFramebufferSize(window, &width, &height);
+
+    float   ratio = width / (float)height;
+
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.f, 1.f, 0.f);
+    glVertex3f(-0.6f, -0.4f, 0.f);
+    glColor3f(1.f, 1.f, 0.f);
+    glVertex3f(0.6f, -0.4f, 0.f);
+    glColor3f(1.f, 1.f, 0.f);
+    glVertex3f(0.f, 0.6f, 0.f);
+    glEnd();
+}
+
 void Init::rendering() {
     while (!glfwWindowShouldClose(window))
     {
         drawScene();
         glClear(GL_COLOR_BUFFER_BIT);
 
+        drawTriangle();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 }
-
-/*void Init::reshape(GLsizei _width, GLsizei _height, GLint _x = 0, GLint _y = 0) {
-        if (!_height)
-            return;
-        glViewport(_x, _y, _width, _height);
-}*/
-
-void Init::deleteInitOpenGL() {
-    glfwTerminate();
-    return;
-}
-
-/*void Init::initGlad() {
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
-        return;
-    }
-}*/

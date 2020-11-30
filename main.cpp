@@ -1,10 +1,12 @@
 
 #include "init.h"
+//#include "draw.h"
 
 void startLab1();
 
 void startLab1() {
     Init initLab1;
+    //Draw triangle;
 
     initLab1.initOpenGL();
     initLab1.initWindow(1080, 720, "lab1");
